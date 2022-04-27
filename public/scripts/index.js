@@ -1,3 +1,5 @@
+const app = require("../../routes");
+
 const tipForm = document.getElementById('tip-form');
 const tipsContainer = document.getElementById('tip-container');
 const fbBtn = document.getElementById('feedback-btn');
@@ -72,8 +74,14 @@ const postTip = (tip) =>
 // When the page loads, get all the tips
 getTips().then((data) => data.forEach((tip) => createCard(tip)));
 
-// Function to validate the tips that were submitted
-// TODO: Use this function to validate the form data. Accepts an object with {username, topic, tip}. Returns { isValid: boolean, and errors: Object }
+/**
+ * Validates the form data
+ * @param {object} newTip 
+ * @param {string} newTip.username
+ * @param {string} newTip.topic
+ * @param {string} newTip.tip
+ * @returns {object} - has isValid as a boolean, the states for the errors
+ */
 const validateTip = (newTip) => {
   const { username, topic, tip } = newTip;
 
@@ -124,10 +132,15 @@ const showErrors = (errorObj) => {
 // Helper function to send a POST request to the diagnostics route (/api/diagnostics)
 const submitDiagnostics = (submissionObj) => {
   // TODO: your code here
+
+  app.post('/diagnostics', (req, res) => {
+    const response = submissionObj;
+    res.json(response);
+  });
+
   console.info(
     '⚠️ Create the logic for the fetch POST request in scripts/index.js'
   );
-  alert('Add your logic to scripts/index.js');
 };
 
 // Function to handle when a user submits the feedback form
